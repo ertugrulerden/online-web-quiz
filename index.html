@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Quiz Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title" id="quizTitle">🧠 DSA Quiz Challenge</h1>
+            <p class="quiz-subtitle" id="quizSubtitle">Test your Data Structures & Algorithms knowledge</p>
+        </div>
+
+        <!-- Chapter Selection -->
+        <div class="chapter-selector" id="chapterSelector">
+            <h3 style="text-align: center; margin-bottom: 20px; color: #333;">📚 Select Chapter to Start</h3>
+            <div class="chapter-grid">
+                <div class="chapter-card" onclick="selectChapter(1)" data-chapter="1">
+                    <div class="chapter-title">Chapter 1 (DSA OG)</div>
+                    <div class="chapter-description">
+                        Original DSA fundamentals covering time complexity, algorithms, data structures, and software engineering concepts.
+                    </div>
+                    <div class="chapter-stats">
+                        <span>📝 12 Questions</span>
+                        <span>⏱️ Mixed Topics</span>
+                    </div>
+                </div>
+                <div class="chapter-card" onclick="selectChapter(2)" data-chapter="2">
+                    <div class="chapter-title">Chapter 2 (DSA Practice)</div>
+                    <div class="chapter-description">
+                        More practice with the same DSA fundamentals - similar concepts to Chapter 1 with different questions for reinforced learning.
+                    </div>
+                    <div class="chapter-stats">
+                        <span>📝 12 Questions</span>
+                        <span>⏱️ Practice Topics</span>
+                    </div>
+                </div>
+                <div class="chapter-card" onclick="selectChapter(3)" data-chapter="3">
+                    <div class="chapter-title">Chapter 3 (Java Algorithms)</div>
+                    <div class="chapter-description">
+                        Fundamental algorithm concepts: problem solving, flowcharts, pseudocode, and basic algorithmic thinking from YMT112 lectures.
+                    </div>
+                    <div class="chapter-stats">
+                        <span>📝 12 Questions</span>
+                        <span>⏱️ Algorithm Fundamentals</span>
+                    </div>
+                </div>
+                <div class="chapter-card" onclick="selectChapter(4)" data-chapter="4">
+                    <div class="chapter-title">Chapter 4 (Java Programming)</div>
+                    <div class="chapter-description">
+                        Control structures, loops, conditions, and programming logic patterns based on YMT112 algorithm course content.
+                    </div>
+                    <div class="chapter-stats">
+                        <span>📝 12 Questions</span>
+                        <span>⏱️ Programming Concepts</span>
+                    </div>
+                </div>
+                <div class="chapter-card" onclick="selectChapter(5)" data-chapter="5">
+                    <div class="chapter-title">Chapter 5 (İnkılap-1-Vize)</div>
+                    <div class="chapter-description">
+                        Turkish History questions covering Ottoman Empire, reforms, wars, and political movements from Turkish curriculum.
+                    </div>
+                    <div class="chapter-stats">
+                        <span>📝 20 Questions</span>
+                        <span>⏱️ Turkish History</span>
+                    </div>
+                </div>
+                <!-- Future chapters will be added here -->
+            </div>
+        </div>
+
+        <!-- Game Mode Selection -->
+        <div class="game-mode-selector" id="gameModeSelector">
+            <h3 style="text-align: center; margin-bottom: 20px; color: #333;">Choose Your Challenge</h3>
+            <div class="mode-buttons">
+                <button class="mode-btn" onclick="startQuizWithMode('practice')" data-mode="practice">
+                    <div>📚 Practice Mode</div>
+                    <small>No timer, learn at your pace</small>
+                </button>
+                <button class="mode-btn" onclick="startQuizWithMode('timed')" data-mode="timed">
+                    <div>⏱️ Timed Challenge</div>
+                    <small>30 seconds per question</small>
+                </button>
+                <button class="mode-btn" onclick="startQuizWithMode('speed')" data-mode="speed">
+                    <div>⚡ Speed Run</div>
+                    <small>15 seconds per question</small>
+                </button>
+            </div>
+            <div class="random-order-toggle">
+                <span class="icon">🔀</span>
+                <label for="randomOrderSwitch">
+                    Random Question Order
+                    <label class="switch">
+                        <input type="checkbox" id="randomOrderSwitch" checked>
+                        <span class="slider"></span>
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <!-- Stats Container -->
+        <div class="stats-container" id="statsContainer" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="levelDisplay">1</div>
+                <div class="stat-label">Level</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="xpDisplay">0</div>
+                <div class="stat-label">XP</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="streakDisplay">0</div>
+                <div class="stat-label">Streak</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="hintsDisplay">3</div>
+                <div class="stat-label">Hints</div>
+            </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-container">
+            <div class="timer" id="timer">30s</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="quizContent">
+            <div class="question-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div class="question-number" id="questionNumber">Question 1 of 12</div>
+                    <button class="btn" id="hintBtn" onclick="useHint()" style="padding: 8px 16px; font-size: 0.9rem; display: none;">
+                        💡 Use Hint (-10 XP)
+                    </button>
+                </div>
+                <div class="question-text" id="questionText"></div>
+                <div id="codeBlock" class="code-block" style="display: none;"></div>
+                <div class="options-container" id="optionsContainer"></div>
+                <div class="explanation" id="explanation">
+                    <div class="explanation-title">Explanation:</div>
+                    <div class="explanation-text" id="explanationText"></div>
+                    <button class="more-info-btn" id="moreInfoBtn" onclick="toggleMoreInfo()" style="display: none;">More Information</button>
+                    <div class="more-info-content" id="moreInfoContent">
+                        <div id="moreInfoDetails"></div>
+                    </div>
+                </div>
+
+                <div class="navigation-controls">
+                    <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" title="Previous Question">&lt;</button>
+                    <span class="question-counter" id="questionCounter">1 / 12</span>
+                    <button class="nav-btn" id="nextNavBtn" onclick="nextQuestion()" title="Next Question">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="final-score" id="finalScore">0/12</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <button class="btn restart-btn" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+
+        <div class="controls">
+            <div class="score-display">
+                Score: <span id="currentScore">0</span>/<span id="totalQuestions">12</span>
+            </div>
+            <div>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data/chapter1.js"></script>
+    <script src="js/data/chapter2.js"></script>
+    <script src="js/data/chapter3.js"></script>
+    <script src="js/data/chapter4.js"></script>
+    <script src="js/data/chapter5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
+
