@@ -10,5 +10,6 @@ const chapters = {
     8: chapter8,  // YGA-3
     9: chapter9,  // YGA-5
     10: chapter10, // YGA-6
-    11: chapter11 // YGA-Full
+    11: chapter11, // YGA-Full
+    12: chapter12 // YGA-Vize
 };
