@@ -1,6 +1,6 @@
 const chapter12 = {
     title: "YGA-Vize",
-    description: "Yazılım Gereksinimi Mühendisliği Vize Soruları",
+    description: "Yazılım Gereksinimi Vize Soruları",
     questions: [
         {
             question: "(DÇ1) Aşağıdakilerden hangisi gereksinim mühendisliği sürecinde gerçekleştirilmez?",
@@ -80,7 +80,7 @@ const chapter12 = {
                 "RELY: Sistem güvenirliliği",
                 "DATA: Veritabanı büyüklüğü",
                 "CPLX: Dil ve araç desteği",
-                "CODU: Gerekli belgeleri büyüklüğü",
+                "DOCU: Gerekli belgeleri büyüklüğü",
                 "RUSE: Yeniden kullanılabilen bileşenlerin yüzdesi"
             ],
             correct: 2,
