@@ -143,7 +143,7 @@ const chapter12 = {
                 "Değişik aşamalarda kullanılabilirliğine göre",
                 "Yöntemlerin yapısına göre"
             ],
-            correct: 1,
+            correct: 2,
             explanation: "Projede çalışan sayısı maliyet kestirim yöntemlerinden biri değildir. Çalışan sayısı maliyetin bir sonucudur, kestirim yöntemi değildir."
         },
         {
