@@ -1,6 +1,6 @@
 const chapter12 = {
     title: "YGA-Vize",
-    description: "Yazılım Gereksinimi Mühendisliği Vize Soruları - Doğru cevaplar '>' ile gösterilmiştir.",
+    description: "Yazılım Gereksinimi Mühendisliği Vize Soruları",
     questions: [
         {
             question: "(DÇ1) Aşağıdakilerden hangisi gereksinim mühendisliği sürecinde gerçekleştirilmez?",
